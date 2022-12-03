@@ -18,42 +18,33 @@ public class Application {
     CommandLineRunner commandLineRunner(StudentRepository studentRepository){
         return args -> {
             Student jienba = new Student(
-                    "Adama D.",
+                    "Adama",
                     "BA",
                     "adamajb@techsuki.sn",25);
+            Student jienba2 = new Student(
+                    "Adama",
+                    "BA",
+                    "adamajb2@techsuki.sn",45);
             Student jiraya = new Student(
                     "Almamy D.",
                     "Camara",
                     "jiraya@techsuki.sn",24);
 
-            System.out.println("Adding jienba and jiraya");
-            studentRepository.saveAll(List.of(jienba, jiraya));
-
-            System.out.print("Number of students:");
-            System.out.println(studentRepository.count());
+            studentRepository.saveAll(List.of(jienba, jiraya, jienba2));
 
             studentRepository
-                    .findById(1L)
-                    .ifPresentOrElse(
-                            System.out::println,
-                            () -> System.out.println("Student with ID 1 not found!")
-            );
-            studentRepository
-                    .findById(3L)
-                    .ifPresentOrElse(
-                            System.out::println,
-                            () -> System.out.println("Student with ID 3 not found!")
-            );
+                    .findStudentsByFirstNameEqualsAndAgeGreaterThanEqual("Adama", 25)
+                    .forEach(System.out::println);
 
-            System.out.println("Select all students");
-            List<Student> students = studentRepository.findAll();
-            students.forEach(System.out::println);
+            /*studentRepository
+                    .findStudentsByFirstNameEqualsAndAgeGreaterThanEqualNative("Adama", 25)
+                    .forEach(System.out::println);*/
 
-            System.out.println("Delete jiraya");
-            studentRepository.deleteById(2L);
+            System.out.println("Deleting Adama 3");
+            System.out.println(studentRepository.deleteStudentById(3L));
 
-            System.out.print("Number of students:");
-            System.out.println(studentRepository.count());
+
+
         };
     }
 
