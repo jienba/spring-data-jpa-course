@@ -20,32 +20,13 @@ public class Application {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner(StudentRepository studentRepository){
+    CommandLineRunner commandLineRunner(StudentRepository studentRepository, StudentIdCardRepository studentIdCardRepository){
         return args -> {
-            generateRandomStudent(studentRepository);
-            PageRequest pageRequest = PageRequest.of(0, 5, Sort.by("firstName").descending());
-            Page<Student> page = studentRepository.findAll(pageRequest);
-            System.out.println(page);
-            page.forEach(student -> System.out.println(student.getFirstName()));
+
+            new StudentIdCard("123456789")
         };
     }
 
-    private void sorting(StudentRepository studentRepository) {
-        Sort sort = Sort.by("firstName").ascending()
-                .and(Sort.by("age").descending());
-        studentRepository.findAll(sort)
-                .forEach(student -> System.out.println(student.getFirstName() +" "+ student.getAge()));
-    }
 
-    private void generateRandomStudent(StudentRepository studentRepository) {
-        var faker = new Faker();
-        for (int i = 0; i < 20; i++) {
-            String firstName = faker.name().firstName();
-            String lastName = faker.name().lastName();
-            String email = String.format("%s.%s@techsuki.sn",firstName,lastName);
-            Student student = new Student(firstName, lastName, email, faker.number().numberBetween(17, 45));
-            studentRepository.save(student);
-        }
-    }
 
 }
