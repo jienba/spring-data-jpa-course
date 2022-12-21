@@ -22,9 +22,30 @@ public class Application {
     @Bean
     CommandLineRunner commandLineRunner(StudentRepository studentRepository, StudentIdCardRepository studentIdCardRepository){
         return args -> {
+            var faker = new Faker();
 
-            new StudentIdCard("123456789")
+            String firstName = faker.name().firstName();
+            String lastName = faker.name().lastName();
+            String email = String.format("%s.%s@techsuki.sn",firstName,lastName);
+            Student student = new Student(firstName, lastName, email, faker.number().numberBetween(17, 45));
+
+
+            StudentIdCard studentIdCard = new StudentIdCard("123456789", student);
+            studentIdCardRepository.save(studentIdCard);
+            studentIdCardRepository.findById(1L)
+                    .ifPresent(System.out::println);
         };
+    }
+
+    private void generateRandomStudent(StudentRepository studentRepository) {
+        var faker = new Faker();
+        for (int i = 0; i < 20; i++) {
+            String firstName = faker.name().firstName();
+            String lastName = faker.name().lastName();
+            String email = String.format("%s.%s@techsuki.sn",firstName,lastName);
+            Student student = new Student(firstName, lastName, email, faker.number().numberBetween(17, 45));
+            studentRepository.save(student);
+        }
     }
 
 
