@@ -32,8 +32,13 @@ public class Application {
 
             StudentIdCard studentIdCard = new StudentIdCard("123456789", student);
             studentIdCardRepository.save(studentIdCard);
+            studentRepository.findById(1L)
+                    .ifPresent(System.out::println);
+
             studentIdCardRepository.findById(1L)
                     .ifPresent(System.out::println);
+
+//            studentRepository.deleteById(1L);
         };
     }
 
