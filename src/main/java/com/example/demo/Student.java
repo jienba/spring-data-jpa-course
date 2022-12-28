@@ -2,6 +2,11 @@ package com.example.demo;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.CascadeType.REMOVE;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity(name = "Student")
@@ -33,6 +38,35 @@ public class Student {
 
     @OneToOne(mappedBy = "student", orphanRemoval = true)
     private StudentIdCard studentIdCard;
+
+    public StudentIdCard getStudentIdCard() {
+        return studentIdCard;
+    }
+
+    public void setStudentIdCard(StudentIdCard studentIdCard) {
+        this.studentIdCard = studentIdCard;
+    }
+
+    @OneToMany(
+            mappedBy = "student",
+            orphanRemoval = true,
+            cascade = {PERSIST, REMOVE}
+    )
+    private List<Book> books = new ArrayList<>();
+
+    public void addBook(Book book){
+        if (!this.books.contains(book)){
+            this.books.add(book);
+            book.setStudent(this);
+        }
+    }
+
+    public void removeBook(Book book){
+        if (this.books.contains(book)){
+            this.books.remove(book);
+            book.setStudent(null);
+        }
+    }
 
     public Student(String firstName, String lastName, String email, Integer age) {
         this.firstName = firstName;
