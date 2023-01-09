@@ -83,4 +83,8 @@ public class Book {
         this.createdAt = createdAt;
         this.student = student;
     }
+    public Book(String bookName, LocalDateTime createdAt) {
+        this.bookName = bookName;
+        this.createdAt = createdAt;
+    }
 }
