@@ -36,7 +36,7 @@ public class Student {
     @Column(name = "age", nullable = false)
     private Integer age;
 
-    @OneToOne(mappedBy = "student", orphanRemoval = true)
+    @OneToOne(mappedBy = "student", orphanRemoval = true, cascade = {PERSIST, REMOVE})
     private StudentIdCard studentIdCard;
 
     public StudentIdCard getStudentIdCard() {

@@ -35,7 +35,9 @@ public class Application {
 
 
             StudentIdCard studentIdCard = new StudentIdCard("123456789", student);
-            studentIdCardRepository.save(studentIdCard);
+            student.setStudentIdCard(studentIdCard);
+
+            studentRepository.save(student);
             studentRepository.findById(1L)
                     .ifPresent(student1 -> {
                         System.out.println("Lazy Loading 😴😴😴");
