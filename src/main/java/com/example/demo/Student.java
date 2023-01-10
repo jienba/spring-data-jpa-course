@@ -54,6 +54,10 @@ public class Student {
     )
     private List<Book> books = new ArrayList<>();
 
+    public List<Book> getBooks() {
+        return books;
+    }
+
     public void addBook(Book book){
         if (!this.books.contains(book)){
             this.books.add(book);

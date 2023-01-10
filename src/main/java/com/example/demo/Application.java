@@ -36,8 +36,14 @@ public class Application {
 
             StudentIdCard studentIdCard = new StudentIdCard("123456789", student);
             studentIdCardRepository.save(studentIdCard);
-//            studentRepository.findById(1L)
-//                    .ifPresent(System.out::println);
+            studentRepository.findById(1L)
+                    .ifPresent(student1 -> {
+                        System.out.println("Lazy Loading 😴😴😴");
+                        List<Book> books = student.getBooks();
+                        books.forEach(book -> {
+                            System.out.println(student1.getFirstName()+ " borrowed "+ book.getBookName() );
+                        });
+                    });
 //
 //            studentIdCardRepository.findById(1L)
 //                    .ifPresent(System.out::println);
