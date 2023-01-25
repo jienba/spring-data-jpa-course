@@ -2,6 +2,11 @@ package com.example.demo;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.CascadeType.REMOVE;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity(name = "Course")
@@ -26,6 +31,12 @@ public class Course {
 
     @Column(name = "department", columnDefinition = "TEXT", nullable = false)
     private String department;
+
+    @ManyToMany(
+            cascade = {PERSIST, REMOVE},
+            mappedBy = "courses"
+    )
+    private List<Student> students = new ArrayList<>();
 
     public Course() {
     }
@@ -57,6 +68,10 @@ public class Course {
 
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+    public List<Student> getStudents() {
+        return students;
     }
 
     @Override

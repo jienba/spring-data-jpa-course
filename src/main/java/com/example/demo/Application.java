@@ -31,11 +31,14 @@ public class Application {
             Student student = new Student(firstName, lastName, email, faker.number().numberBetween(17, 45));
             student.addBook(new Book("Think and Grow Rich", LocalDateTime.now().minusDays(4)));
             student.addBook(new Book("The Richest Man of Babylone", LocalDateTime.now().minusYears(4)));
-            student.addBook(new Book("The Alchimist", LocalDateTime.now()));
+            student.addBook(new Book("The Alchemist", LocalDateTime.now()));
 
 
             StudentIdCard studentIdCard = new StudentIdCard("123456789", student);
             student.setStudentIdCard(studentIdCard);
+
+            student.enrollStudentToCourse(new Course("Cryptographic", "IT"));
+            student.enrollStudentToCourse(new Course("UI/UX", "IT"));
 
             studentRepository.save(student);
             studentRepository.findById(1L)

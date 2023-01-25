@@ -66,7 +66,7 @@ public class Student {
                     foreignKey = @ForeignKey(name = "enrolment_course_id_fk")
             )
     )
-    private List<Course> courses = new ArrayList<>()
+    private List<Course> courses = new ArrayList<>();
 
     public List<Book> getBooks() {
         return books;
@@ -135,6 +135,16 @@ public class Student {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public void enrollStudentToCourse(Course course){
+        courses.add(course);
+        course.getStudents().add(this);
+    }
+
+    public void unenrollStudentFromCourse(Course course){
+        courses.remove(course);
+        course.getStudents().remove(this);
     }
 
     @Override
