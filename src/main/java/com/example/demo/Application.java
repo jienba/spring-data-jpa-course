@@ -37,8 +37,8 @@ public class Application {
             StudentIdCard studentIdCard = new StudentIdCard("123456789", student);
             student.setStudentIdCard(studentIdCard);
 
-            student.enrollStudentToCourse(new Course("Cryptographic", "IT"));
-            student.enrollStudentToCourse(new Course("UI/UX", "IT"));
+            student.addEnrolment(new Enrolment(new EnrolmentId(1L, 1L),student, new Course("Cryptographic", "IT")));
+            student.addEnrolment(new Enrolment(new EnrolmentId(1L, 2L), student, new Course("UI/UX", "IT")));
 
             studentRepository.save(student);
             studentRepository.findById(1L)
