@@ -54,19 +54,11 @@ public class Student {
     )
     private List<Book> books = new ArrayList<>();
 
-    @ManyToMany(cascade = {PERSIST, REMOVE})
-    @JoinTable(
-            name = "enrolment",
-            joinColumns = @JoinColumn(
-                    name = "student_id",
-                    foreignKey = @ForeignKey( name = "enrolment_student_id_fk")
-            ),
-            inverseJoinColumns = @JoinColumn(
-                    name = "course_id",
-                    foreignKey = @ForeignKey(name = "enrolment_course_id_fk")
-            )
+    @OneToMany(
+            cascade = {PERSIST, REMOVE},
+            mappedBy = "student"
     )
-    private List<Course> courses = new ArrayList<>();
+    private List<Enrolment> enrolmentList = new ArrayList<>();
 
     public List<Book> getBooks() {
         return books;
@@ -137,15 +129,18 @@ public class Student {
         this.age = age;
     }
 
-    public void enrollStudentToCourse(Course course){
-        courses.add(course);
-        course.getStudents().add(this);
+    public List<Enrolment> getEnrolmentList() {
+        return enrolmentList;
     }
 
-    public void unenrollStudentFromCourse(Course course){
-        courses.remove(course);
-        course.getStudents().remove(this);
-    }
+   public void addEnrolment(Enrolment enrolment){
+        if (!enrolmentList.contains(enrolment)){
+            enrolmentList.add(enrolment);
+        }
+   }
+   public void remveEnrolment(Enrolment enrolment){
+        enrolmentList.remove(enrolment);
+   }
 
     @Override
     public String toString() {
