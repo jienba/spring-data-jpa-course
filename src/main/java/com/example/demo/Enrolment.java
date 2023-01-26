@@ -15,7 +15,7 @@ public class Enrolment {
             name = "student_id",
             foreignKey = @ForeignKey(name = "enrolment_student_id_fk")
     )
-    @MapsId("studentId") // Used for specifying part key for composeite key
+    @MapsId("studentId") // Used for specifying part key for composite key
     private Student student;
 
     @ManyToOne
